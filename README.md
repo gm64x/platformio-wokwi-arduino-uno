@@ -14,7 +14,15 @@ Use this repository as a base for Arduino Uno projects that need local developme
 
 ## Getting started
 
-Clone this repository and open it in VS Code with the PlatformIO extension installed.
+This project works best in conjunction with [Visual Studio Code](https://code.visualstudio.com/), [PlatformIO IDE](https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide), and [Wokwi Simulator for VS Code](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode).
+
+Install the tools before opening the project:
+
+1. [Install Visual Studio Code](https://code.visualstudio.com/download)
+2. [Install PlatformIO IDE in VS Code](https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide)
+3. [Install Wokwi Simulator in VS Code](https://marketplace.visualstudio.com/items?itemName=Wokwi.wokwi-vscode)
+
+Clone this repository and open it in VS Code.
 
 Build the project with:
 
