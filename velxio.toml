@@ -1,0 +1,7 @@
+# Velxio simulator config (read by the Velxio VS Code extension).
+# Loads the PlatformIO build output instead of compiling with arduino-cli.
+[velxio]
+version = 1
+board = "arduino-uno"
+firmware = ".pio/build/uno/firmware.hex"
+elf = ".pio/build/uno/firmware.elf"
