@@ -44,8 +44,10 @@ The project also works in [Zed](https://zed.dev/) through the [PlatformIO Core C
 1. Install PlatformIO Core and make sure `pio` is on your `PATH`, or run `mise install` to get `pio` and `wokwi-cli` from `mise.toml` with [mise](https://mise.jdx.dev/)
 2. Open the folder in Zed
 3. Run `task: spawn` (`alt-shift-t`) and pick a task from `.zed/tasks.json`:
-   - `PlatformIO: Build`, `Upload`, `Upload and Monitor`, `Serial Monitor`, `Clean`, `Test`
-   - `PlatformIO: Generate compile_commands.json (clangd)`
+   - Build and upload: `Build`, `Upload`, `Upload and Monitor`, `Serial Monitor`, `Clean`, `Test`, `Program Size`, `Verbose Build`, `Static Code Analysis`
+   - Ports: `List Devices (Serial Ports)`, `Select Port`, `Upload to Port …`, `Serial Monitor on Port …`
+   - Libraries: `Search Libraries for …`, `Install Library …`, `Uninstall Library …`, `List Installed Packages`, `Check Outdated Packages`, `Update Packages`
+   - Other: `Search Boards for …`, `System Info`, `Open PIO Home`, `Generate compile_commands.json (clangd)`
    - `Wokwi: Simulate` (build first)
 4. Run the `compile_commands.json` task once (and again after changing `platformio.ini` or libraries) so clangd can resolve `Arduino.h` and the AVR headers. `.clangd` removes GCC-only AVR flags that clang does not understand.
 
@@ -68,6 +70,18 @@ The Wokwi and Velxio configurations use the PlatformIO build output:
 - ELF: `.pio/build/uno/firmware.elf`
 
 Edit `src/main.cpp` to add your application code and `diagram.json` to add components and wiring for your simulation.
+
+### Libraries and ports from Zed
+
+Zed tasks can't ask for input, so the tasks ending in `…` use the text selected in the editor. They only show up in `task: spawn` while something is selected:
+
+- **Find and add a library:** type a name such as `DHT` anywhere (a scratch buffer works), select it and run `Search Libraries for "DHT"`. Then select the full name from the results, e.g. `adafruit/DHT sensor library`, and run `Install Library`. It is added to `lib_deps` in `platformio.ini`.
+- **Pick a port once:** run `Select Port`. It lists the serial ports, asks for a number in the terminal and saves your choice in `port.local.ini` (git-ignored), which every upload and monitor then uses. Choose `0` to go back to auto-detect.
+- **Use a port just once:** select a port name such as `COM3` or `/dev/ttyUSB0` and run `Upload to Port` or `Serial Monitor on Port`.
+
+In the task picker, `tab` lets you edit a task's command before running it, e.g. to add flags.
+
+All of these are plain `pio` commands, so they work the same on Windows and Linux and from any terminal: `pio pkg search dht`, `pio pkg install --library "adafruit/DHT sensor library"`, `pio device list`, `pio run -t select_port`.
 
 ## Linux and Windows setup
 
@@ -117,7 +131,7 @@ The board shows up as `/dev/ttyACM0` (original Uno) or `/dev/ttyUSB0` (CH340 clo
 
 The board shows up as a `COM` port (for example `COM3`). Check **Device Manager > Ports (COM & LPT)** or run `pio device list`.
 
-PlatformIO picks the upload port automatically on both systems. To force one, add `upload_port = COM3` (Windows) or `upload_port = /dev/ttyUSB0` (Linux) to the `[env]` section of `platformio.ini`.
+PlatformIO picks the upload port automatically on both systems. To choose one, run `pio run -t select_port` (or the `Select Port` Zed task), or add `upload_port = COM3` (Windows) or `upload_port = /dev/ttyUSB0` (Linux) to the `[env]` section of `platformio.ini`.
 
 ## Project structure
 
@@ -129,6 +143,7 @@ PlatformIO picks the upload port automatically on both systems. To force one, ad
 ├── wokwi.toml        # Wokwi simulation configuration
 ├── velxio.toml       # Velxio simulation configuration
 ├── compiledb.py      # Adds toolchain headers to compile_commands.json
+├── port_select.py    # Adds `pio run -t select_port`
 ├── .clangd           # clangd settings for Zed
 ├── .zed/             # Zed tasks and project settings
 ├── src/
