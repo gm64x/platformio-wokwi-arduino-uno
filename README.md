@@ -28,7 +28,7 @@ Clone this repository and open it in VS Code.
 
 The project also works in [Zed](https://zed.dev/) through the [PlatformIO Core CLI](https://docs.platformio.org/en/latest/core/installation/index.html) (`pio`) and, optionally, the [Wokwi CLI](https://docs.wokwi.com/wokwi-ci/cli-installation) (`wokwi-cli`, needs a `WOKWI_CLI_TOKEN`).
 
-1. Install PlatformIO Core and make sure `pio` is on your `PATH`
+1. Install PlatformIO Core and make sure `pio` is on your `PATH`, or run `mise install` to get `pio` and `wokwi-cli` from `mise.toml` with [mise](https://mise.jdx.dev/)
 2. Open the folder in Zed
 3. Run `task: spawn` (`alt-shift-t`) and pick a task from `.zed/tasks.json`:
    - `PlatformIO: Build`, `Upload`, `Upload and Monitor`, `Serial Monitor`, `Clean`, `Test`
@@ -55,6 +55,7 @@ Edit `src/main.cpp` to add your application code and `diagram.json` to add compo
 .
 ├── diagram.json      # Wokwi circuit definition
 ├── platformio.ini    # PlatformIO configuration
+├── mise.toml         # Dev tools (pio, wokwi-cli) for mise
 ├── wokwi.toml        # Wokwi simulation configuration
 ├── compiledb.py      # Adds toolchain headers to compile_commands.json
 ├── .clangd           # clangd settings for Zed

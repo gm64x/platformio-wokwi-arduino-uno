@@ -1,0 +1,5 @@
+# Dev tools for this project. Run `mise install` to set them up.
+[tools]
+uv = "latest"                         # used by mise to install the pipx: tools
+"pipx:platformio" = "6.2.0"           # pio CLI
+"github:wokwi/wokwi-cli" = { version = "0.28.0", bin = "wokwi-cli" } # Wokwi simulator CLI (needs WOKWI_CLI_TOKEN)
