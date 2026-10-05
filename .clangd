@@ -1,0 +1,14 @@
+# clangd configuration for PlatformIO (AVR) projects.
+# Generate compile_commands.json first: `pio run -t compiledb`
+CompileFlags:
+  # GCC/AVR-only flags that clang does not understand
+  Remove:
+    - -mmcu=*
+    - -fno-fat-lto-objects
+    - -flto
+    - -fpermissive
+    - -fno-threadsafe-statics
+    - -Wno-error=narrowing
+  Add:
+    - -D__AVR_ATmega328P__
+    - -Wno-unknown-attributes

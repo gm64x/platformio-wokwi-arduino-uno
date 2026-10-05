@@ -1,0 +1,6 @@
+// Project settings for Zed. See https://zed.dev/docs/configuring-zed
+{
+  "file_types": {
+    "C++": ["ino"]
+  }
+}
