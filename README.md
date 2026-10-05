@@ -9,7 +9,8 @@ Use this repository as a base for Arduino Uno projects that need local developme
 - PlatformIO configuration for Arduino Uno
 - Arduino framework
 - Wokwi simulation configuration
-- Empty Wokwi circuit ready for customization
+- Velxio simulation configuration
+- Wokwi/Velxio circuit with just the Arduino Uno board, ready for customization
 - Standard PlatformIO project structure
 
 ## Getting started
@@ -36,13 +37,20 @@ The project also works in [Zed](https://zed.dev/) through the [PlatformIO Core C
    - `Wokwi: Simulate` (build first)
 4. Run the `compile_commands.json` task once (and again after changing `platformio.ini` or libraries) so clangd can resolve `Arduino.h` and the AVR headers. `.clangd` removes GCC-only AVR flags that clang does not understand.
 
+### Using Velxio
+
+[Velxio](https://velxio.dev/) is an open-source Arduino/ESP32/RP2040 simulator ([GitHub](https://github.com/davidmonterocrespo24/velxio)) that reads the same Wokwi-format `diagram.json`. `velxio.toml` points it at the PlatformIO build output, so it runs the firmware from `pio run` instead of compiling the sketch itself. Velxio has no CLI, so there is no mise tool or Zed task for it.
+
+- Web (free): build with `pio run`, open the [Velxio editor](https://velxio.dev/editor) with the Arduino Uno board, then use `File > Upload firmware` and pick `.pio/build/uno/firmware.hex` (or `firmware.elf`). To bring the circuit along, zip `diagram.json` and load it first with `File > Import project`.
+- VS Code: the [Velxio Simulator extension](https://github.com/davidmonterocrespo24/velxio/tree/master/vscode-extension) (needs a Velxio Pro subscription or its 30-day trial) picks up `velxio.toml`; build first, then run `Velxio: Run Simulation`.
+
 Build the project with:
 
 ```bash
 pio run
 ```
 
-The Wokwi configuration uses the PlatformIO build output:
+The Wokwi and Velxio configurations use the PlatformIO build output:
 
 - Firmware: `.pio/build/uno/firmware.hex`
 - ELF: `.pio/build/uno/firmware.elf`
@@ -53,10 +61,11 @@ Edit `src/main.cpp` to add your application code and `diagram.json` to add compo
 
 ```
 .
-├── diagram.json      # Wokwi circuit definition
+├── diagram.json      # Wokwi/Velxio circuit definition
 ├── platformio.ini    # PlatformIO configuration
 ├── mise.toml         # Dev tools (pio, wokwi-cli) for mise
 ├── wokwi.toml        # Wokwi simulation configuration
+├── velxio.toml       # Velxio simulation configuration
 ├── compiledb.py      # Adds toolchain headers to compile_commands.json
 ├── .clangd           # clangd settings for Zed
 ├── .zed/             # Zed tasks and project settings
