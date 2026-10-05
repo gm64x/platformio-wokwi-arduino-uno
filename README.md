@@ -1,8 +1,8 @@
 # PlatformIO Wokwi Arduino Uno
 
-A reusable Arduino Uno starter project for PlatformIO and Wokwi.
+A reusable Arduino Uno starter project for PlatformIO, Wokwi and Velxio.
 
-Use this repository as a base for Arduino Uno projects that need local development with PlatformIO and circuit simulation with Wokwi.
+Use this repository as a base for Arduino Uno projects that need local development with PlatformIO and circuit simulation with Wokwi or Velxio. It works in VS Code and in Zed.
 
 ## Included
 
@@ -11,7 +11,19 @@ Use this repository as a base for Arduino Uno projects that need local developme
 - Wokwi simulation configuration
 - Velxio simulation configuration
 - Wokwi/Velxio circuit with just the Arduino Uno board, ready for customization
+- Zed tasks and clangd setup
+- `mise.toml` with pinned `pio` and `wokwi-cli`
 - Standard PlatformIO project structure
+
+## Use as a template
+
+Click **Use this template** on GitHub, or create a new project from the terminal:
+
+```bash
+gh repo create my-project --template gm64x/platformio-wokwi-arduino-uno --public --clone
+```
+
+Looking for the ESP32 DevKit version? See [platformio-wokwi-esp32](https://github.com/gm64x/platformio-wokwi-esp32).
 
 ## Getting started
 
@@ -78,4 +90,4 @@ Edit `src/main.cpp` to add your application code and `diagram.json` to add compo
 
 ## License
 
-Add a license to the repository if you plan to distribute or reuse projects based on it.
+[MIT](LICENSE)
