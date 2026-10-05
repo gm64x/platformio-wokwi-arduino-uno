@@ -1,63 +1,311 @@
-// Zed tasks for PlatformIO + Wokwi.
+// Zed tasks for PlatformIO + Wokwi. They work the same on Windows and Linux.
 // Run them with `task: spawn` (alt-shift-t) or rerun the last one with `task: rerun` (alt-t).
+// Tasks with $ZED_SELECTED_TEXT only show up when text is selected in the editor:
+// select a library name, board name or port (e.g. COM3, /dev/ttyUSB0) first.
 // See https://zed.dev/docs/tasks
 [
   {
     "label": "PlatformIO: Build",
     "command": "pio",
-    "args": ["run"],
+    "args": [
+      "run"
+    ],
     "cwd": "$ZED_WORKTREE_ROOT",
-    "tags": ["pio"]
+    "tags": [
+      "pio"
+    ]
   },
   {
     "label": "PlatformIO: Upload",
     "command": "pio",
-    "args": ["run", "--target", "upload"],
+    "args": [
+      "run",
+      "--target",
+      "upload"
+    ],
     "cwd": "$ZED_WORKTREE_ROOT",
-    "tags": ["pio"]
+    "tags": [
+      "pio"
+    ]
   },
   {
     "label": "PlatformIO: Upload and Monitor",
     "command": "pio",
-    "args": ["run", "--target", "upload", "--target", "monitor"],
+    "args": [
+      "run",
+      "--target",
+      "upload",
+      "--target",
+      "monitor"
+    ],
     "cwd": "$ZED_WORKTREE_ROOT",
     "use_new_terminal": true,
-    "tags": ["pio"]
+    "tags": [
+      "pio"
+    ]
   },
   {
     "label": "PlatformIO: Serial Monitor",
     "command": "pio",
-    "args": ["device", "monitor"],
+    "args": [
+      "device",
+      "monitor"
+    ],
     "cwd": "$ZED_WORKTREE_ROOT",
     "use_new_terminal": true,
-    "tags": ["pio"]
+    "tags": [
+      "pio"
+    ]
   },
   {
     "label": "PlatformIO: Clean",
     "command": "pio",
-    "args": ["run", "--target", "clean"],
+    "args": [
+      "run",
+      "--target",
+      "clean"
+    ],
     "cwd": "$ZED_WORKTREE_ROOT",
-    "tags": ["pio"]
+    "tags": [
+      "pio"
+    ]
   },
   {
     "label": "PlatformIO: Test",
     "command": "pio",
-    "args": ["test"],
+    "args": [
+      "test"
+    ],
     "cwd": "$ZED_WORKTREE_ROOT",
-    "tags": ["pio"]
+    "tags": [
+      "pio"
+    ]
   },
   {
     "label": "PlatformIO: Generate compile_commands.json (clangd)",
     "command": "pio",
-    "args": ["run", "--target", "compiledb"],
+    "args": [
+      "run",
+      "--target",
+      "compiledb"
+    ],
     "cwd": "$ZED_WORKTREE_ROOT",
-    "tags": ["pio"]
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Program Size",
+    "command": "pio",
+    "args": [
+      "run",
+      "--target",
+      "size"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Verbose Build",
+    "command": "pio",
+    "args": [
+      "run",
+      "--verbose"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Static Code Analysis",
+    "command": "pio",
+    "args": [
+      "check"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: List Devices (Serial Ports)",
+    "command": "pio",
+    "args": [
+      "device",
+      "list"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Select Port",
+    "command": "pio",
+    "args": [
+      "run",
+      "--target",
+      "select_port"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Upload to Port $ZED_SELECTED_TEXT",
+    "command": "pio",
+    "args": [
+      "run",
+      "--target",
+      "upload",
+      "--upload-port",
+      "$ZED_SELECTED_TEXT"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Serial Monitor on Port $ZED_SELECTED_TEXT",
+    "command": "pio",
+    "args": [
+      "device",
+      "monitor",
+      "--port",
+      "$ZED_SELECTED_TEXT"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Search Libraries for \"$ZED_SELECTED_TEXT\"",
+    "command": "pio",
+    "args": [
+      "pkg",
+      "search",
+      "$ZED_SELECTED_TEXT"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Install Library \"$ZED_SELECTED_TEXT\"",
+    "command": "pio",
+    "args": [
+      "pkg",
+      "install",
+      "--library",
+      "$ZED_SELECTED_TEXT"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Uninstall Library \"$ZED_SELECTED_TEXT\"",
+    "command": "pio",
+    "args": [
+      "pkg",
+      "uninstall",
+      "--library",
+      "$ZED_SELECTED_TEXT"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: List Installed Packages",
+    "command": "pio",
+    "args": [
+      "pkg",
+      "list"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Check Outdated Packages",
+    "command": "pio",
+    "args": [
+      "pkg",
+      "outdated"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Update Packages",
+    "command": "pio",
+    "args": [
+      "pkg",
+      "update"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Search Boards for \"$ZED_SELECTED_TEXT\"",
+    "command": "pio",
+    "args": [
+      "boards",
+      "$ZED_SELECTED_TEXT"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: System Info",
+    "command": "pio",
+    "args": [
+      "system",
+      "info"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "tags": [
+      "pio"
+    ]
+  },
+  {
+    "label": "PlatformIO: Open PIO Home",
+    "command": "pio",
+    "args": [
+      "home"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "tags": [
+      "pio"
+    ]
   },
   {
     "label": "Wokwi: Simulate",
     "command": "wokwi-cli",
     "cwd": "$ZED_WORKTREE_ROOT",
     "use_new_terminal": true,
-    "tags": ["wokwi"]
+    "tags": [
+      "wokwi"
+    ]
   }
 ]
