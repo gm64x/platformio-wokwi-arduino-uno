@@ -41,7 +41,7 @@ The project also works in [Zed](https://zed.dev/) through the [PlatformIO Core C
 
 [Velxio](https://velxio.dev/) is an open-source Arduino/ESP32/RP2040 simulator ([GitHub](https://github.com/davidmonterocrespo24/velxio)) that reads the same Wokwi-format `diagram.json`. `velxio.toml` points it at the PlatformIO build output, so it runs the firmware from `pio run` instead of compiling the sketch itself. Velxio has no CLI, so there is no mise tool or Zed task for it.
 
-- Web (free): build with `pio run`, open the [Velxio editor](https://velxio.dev/editor) with the Arduino Uno board, then use `File > Upload firmware` and pick `.pio/build/uno/firmware.hex` (or `firmware.elf`). To bring the circuit along, zip `diagram.json` and load it first with `File > Import project`.
+- Web (free): every `pio run` also writes `.pio/build/uno/velxio.zip` (`diagram.json` plus the sources from `src/` and `include/`, via `velxio_zip.py`). In the [Velxio editor](https://velxio.dev/editor), load it with `File > Import project` to get the board, circuit and code, then use `File > Upload firmware` and pick `.pio/build/uno/firmware.hex` (Velxio's zip format cannot carry firmware).
 - VS Code: the [Velxio Simulator extension](https://github.com/davidmonterocrespo24/velxio/tree/master/vscode-extension) (needs a Velxio Pro subscription or its 30-day trial) picks up `velxio.toml`; build first, then run `Velxio: Run Simulation`.
 
 Build the project with:
@@ -67,6 +67,7 @@ Edit `src/main.cpp` to add your application code and `diagram.json` to add compo
 ├── wokwi.toml        # Wokwi simulation configuration
 ├── velxio.toml       # Velxio simulation configuration
 ├── compiledb.py      # Adds toolchain headers to compile_commands.json
+├── velxio_zip.py     # Packs .pio/build/uno/velxio.zip for Velxio import
 ├── .clangd           # clangd settings for Zed
 ├── .zed/             # Zed tasks and project settings
 ├── src/
