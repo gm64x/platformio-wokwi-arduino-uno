@@ -69,6 +69,56 @@ The Wokwi and Velxio configurations use the PlatformIO build output:
 
 Edit `src/main.cpp` to add your application code and `diagram.json` to add components and wiring for your simulation.
 
+## Linux and Windows setup
+
+Both setups use [mise](https://mise.jdx.dev/) to install the pinned `pio` and `wokwi-cli` from `mise.toml`. If you already have PlatformIO Core on your `PATH`, skip the mise steps.
+
+### Linux
+
+1. Install mise and enable it in your shell:
+
+   ```bash
+   curl https://mise.run | sh
+   echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc   # or ~/.zshrc with "activate zsh"
+   ```
+
+2. In the project folder, install the tools:
+
+   ```bash
+   mise trust && mise install
+   ```
+
+3. Allow uploads to the board without `sudo` (PlatformIO udev rules and serial group), then log out and back in:
+
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/system/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+   sudo udevadm control --reload-rules && sudo udevadm trigger
+   sudo usermod -a -G dialout $USER   # on Arch-based distros the group is "uucp"
+   ```
+
+4. Optional: install Zed with `curl -f https://zed.dev/install.sh | sh`.
+5. Optional, for `wokwi-cli`: `export WOKWI_CLI_TOKEN=<token>` (add it to `~/.bashrc` to keep it).
+
+The board shows up as `/dev/ttyACM0` (original Uno) or `/dev/ttyUSB0` (CH340 clones). **WSL:** build and simulate inside WSL, but USB devices are not visible there by default. Upload from Windows, or attach the board with [usbipd-win](https://learn.microsoft.com/windows/wsl/connect-usb).
+
+### Windows
+
+1. Install mise from PowerShell, with `winget install jdx.mise` or `scoop install mise`.
+2. Make the tools available in every terminal: add `%LOCALAPPDATA%\mise\shims` to your user `PATH`, or add `mise activate pwsh | Out-String | Invoke-Expression` to your PowerShell `$PROFILE`.
+3. In the project folder, install the tools:
+
+   ```powershell
+   mise trust; mise install
+   ```
+
+4. Install the USB-to-serial driver if Windows doesn't detect the board: an original Uno uses the built-in Windows driver; most clones use a CH340 chip ([WCH CH340 driver](https://www.wch-ic.com/downloads/CH341SER_EXE.html)).
+5. Optional: install [Zed for Windows](https://zed.dev/download).
+6. Optional, for `wokwi-cli`: `setx WOKWI_CLI_TOKEN "<token>"`, then open a new terminal.
+
+The board shows up as a `COM` port (for example `COM3`). Check **Device Manager > Ports (COM & LPT)** or run `pio device list`.
+
+PlatformIO picks the upload port automatically on both systems. To force one, add `upload_port = COM3` (Windows) or `upload_port = /dev/ttyUSB0` (Linux) to the `[env]` section of `platformio.ini`.
+
 ## Project structure
 
 ```
